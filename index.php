@@ -17,7 +17,16 @@ foreach ($period as $day) {
   };
   $body .= sprintf('<td class="youbi_%d">%d</td>', $day->format('w'),
   $day->format('d'));
-};
+}
+
+// DateTimeオブジェクトで、0(日曜)~6(土曜)が、日曜り大きい月曜〜土曜であれば、
+
+$head = '';
+$firstDayOfNextMonth = new DateTime('first day of next month');
+while($firstDayOfNextMonth->format('w') > 0){
+  $head .= sprintf('<td class="gray">%d</td>', $firstDayOfNextMonth->format('d'));
+  $firstDayOfNextMonth->add(new DateInterval('P1D'));
+}
 
  ?>
 
@@ -48,7 +57,7 @@ foreach ($period as $day) {
            <th>Sat</th>
          </tr>
          <tr>
-           <?php echo $body; ?>
+           <?php echo $body. $head; ?>
            <!-- <td class="youbi_0">1</td>
            <td class="youbi_1">2</td>
            <td class="youbi_2">3</td>

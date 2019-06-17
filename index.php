@@ -11,6 +11,9 @@ $period = new DatePeriod(
 
 // body変数に連結し、書式付きで文字列を作るsprintfで、tdタグの中にd要素(1〜末日)を入れる
 foreach ($period as $day) {
+  if ($day->format('w') % 7 == 0 ){
+    $body .= '</tr><tr>';
+  };
   $body .= sprintf('<td>%d</td>', $day->format('d'));
 };
 

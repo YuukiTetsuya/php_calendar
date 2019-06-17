@@ -10,11 +10,13 @@ $period = new DatePeriod(
 );
 
 // body変数に連結し、書式付きで文字列を作るsprintfで、tdタグの中にd要素(1〜末日)を入れる
+// format(w)で0(日曜)~6(土曜)まで入れ、7で割ったあまりが0の場合(日曜の場合)は、trタグを追加で入れる
 foreach ($period as $day) {
-  if ($day->format('w') % 7 == 0 ){
+  if ($day->format('w') % 7 === 0 ){
     $body .= '</tr><tr>';
   };
-  $body .= sprintf('<td>%d</td>', $day->format('d'));
+  $body .= sprintf('<td class="youbi_%d">%d</td>', $day->format('w'),
+  $day->format('d'));
 };
 
  ?>

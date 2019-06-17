@@ -2,8 +2,19 @@
 
 // 現在の年/月を$tに代入し、DateTimeオブジェクトを$thisMonthに代入し、月/年をF/Yでformatメソッドで取得し、$yearMonthに代入
 
-$t = '2015-09';
-$thisMonth = new DateTime($t); //2015-0801
+try {
+  if(!isset($_GET['t']) || !preg_match('/\A\d{4}-\d{2}\z/', $_GET['t'])){
+    throw new Exception();
+  }
+  $thisMonth = new DateTime($_GET['t']);
+} catch (Exception $e) {
+  $thisMonth = new DateTime('first day of this month');
+}
+
+var_dump($thisMonth);
+exit;
+
+
 $yearMonth = $thisMonth->format('F Y');
 
 $tail = '';

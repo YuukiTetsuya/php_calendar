@@ -7,13 +7,14 @@
    <head>
      <meta charset="utf-8">
      <title>PHPカレンダー</title>
+     <link rel="stylesheet" href="styles.css">
    </head>
    <body>
      <table>
        <thead>
          <tr>
            <th><a href="">&laquo;</a></th>
-           <th colspan="5">August 2015</a></th>
+           <th colspan="5">August 2019</a></th>
            <th><a href="">&laquo;</a></th>
          </tr>
        </thead>

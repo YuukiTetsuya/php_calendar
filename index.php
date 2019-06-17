@@ -1,5 +1,13 @@
 <?php
 
+$tail = '';
+$lastDayOfPrevMonth = new DateTime('last day of previous month');
+while($lastDayOfPrevMonth->format('w') < 6){
+  $tail = sprintf('<td class="gray">%d</td>', $lastDayOfPrevMonth->format('d')) .
+  $tail;
+  $lastDayOfPrevMonth->sub(new DateInterval('P1D'));
+}
+
 $body = '';
 // 特定の期間の日付オブジェクトを作る
 $period = new DatePeriod(
@@ -28,6 +36,8 @@ while($firstDayOfNextMonth->format('w') > 0){
   $firstDayOfNextMonth->add(new DateInterval('P1D'));
 }
 
+$html = '<tr>' . $tail. $body. $head . '</tr>';
+
  ?>
 
  <!DOCTYPE html>
@@ -43,7 +53,7 @@ while($firstDayOfNextMonth->format('w') > 0){
          <tr>
            <th><a href="">&laquo;</a></th>
            <th colspan="5">August 2019</a></th>
-           <th><a href="">&laquo;</a></th>
+           <th><a href="">&raquo;</a></th>
          </tr>
        </thead>
        <tbody>
@@ -56,24 +66,7 @@ while($firstDayOfNextMonth->format('w') > 0){
            <th>Fri</th>
            <th>Sat</th>
          </tr>
-         <tr>
-           <?php echo $body. $head; ?>
-           <!-- <td class="youbi_0">1</td>
-           <td class="youbi_1">2</td>
-           <td class="youbi_2">3</td>
-           <td class="youbi_3">4</td>
-           <td class="youbi_4 today">5</td>
-           <td class="youbi_5">6</td>
-           <td class="youbi_6">8</td>
-         </tr>
-         <tr>
-           <td class="youbi_0">30</td>
-           <td class="youbi_1">31</td>
-           <td class="gray">1</td>
-           <td class="gray">2</td>
-           <td class="gray">3</td>
-           <td class="gray">4</td>
-           <td class="gray">5</td> -->
+         <?php echo $html; ?>
          </tr>
        </tbody>
        <tfoot>

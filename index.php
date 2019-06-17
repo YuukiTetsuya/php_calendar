@@ -1,5 +1,19 @@
 <?php
 
+$body = '';
+// 特定の期間の日付オブジェクトを作る
+$period = new DatePeriod(
+// 1日から末日までの日付を作る
+  new DateTime('first day of this month'),
+  new DateInterval('P1D'),
+  new DateTime('first day of next month')
+);
+
+// body変数に連結し、書式付きで文字列を作るsprintfで、tdタグの中にd要素(1〜末日)を入れる
+foreach ($period as $day) {
+  $body .= sprintf('<td>%d</td>', $day->format('d'));
+};
+
  ?>
 
  <!DOCTYPE html>
@@ -29,7 +43,8 @@
            <th>Sat</th>
          </tr>
          <tr>
-           <td class="youbi_0">1</td>
+           <?php echo $body; ?>
+           <!-- <td class="youbi_0">1</td>
            <td class="youbi_1">2</td>
            <td class="youbi_2">3</td>
            <td class="youbi_3">4</td>
@@ -44,7 +59,7 @@
            <td class="gray">2</td>
            <td class="gray">3</td>
            <td class="gray">4</td>
-           <td class="gray">5</td>
+           <td class="gray">5</td> -->
          </tr>
        </tbody>
        <tfoot>

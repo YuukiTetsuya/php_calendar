@@ -1,5 +1,9 @@
 <?php
 
+function h($s){
+  return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+}
+
 // 現在の年/月を$tに代入し、DateTimeオブジェクトを$thisMonthに代入し、月/年をF/Yでformatメソッドで取得し、$yearMonthに代入
 
 try {
@@ -11,9 +15,10 @@ try {
   $thisMonth = new DateTime('first day of this month');
 }
 
-var_dump($thisMonth);
-exit;
-
+$dt = clone $thisMonth;
+$prev = $dt->modify('-1 month')->format('Y-m');
+$dt = clone $thisMonth;
+$next = $dt->modify('+1 month')->format('Y-m');
 
 $yearMonth = $thisMonth->format('F Y');
 
@@ -68,9 +73,9 @@ $html = '<tr>' . $tail. $body. $head . '</tr>';
      <table>
        <thead>
          <tr>
-           <th><a href="">&laquo;</a></th>
-           <th colspan="5"><?php echo $yearMonth; ?></a></th>
-           <th><a href="">&raquo;</a></th>
+           <th><a href="/?t=<?php echo h($prev) ?>">&laquo;</a></th>
+           <th colspan="5"><?php echo h($yearMonth); ?></a></th>
+           <th><a href="/?t=<?php echo h($next) ?>">&raquo;</a></th>
          </tr>
        </thead>
        <tbody>
@@ -88,7 +93,7 @@ $html = '<tr>' . $tail. $body. $head . '</tr>';
        </tbody>
        <tfoot>
          <tr>
-           <th colspan="7"><a href="">Today</a></th>
+           <th colspan="7"><a href="/">Today</a></th>
          </tr>
        </tfoot>
      </table>
